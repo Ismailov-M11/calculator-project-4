@@ -184,9 +184,23 @@ export function useWarehouseCheck() {
       return { show: false, message: "" };
     }
 
-    const originHasWarehouse = hasWarehouse(originCity?.name || null);
-    const destinationHasWarehouse = hasWarehouse(destinationCity?.name || null);
-    const destinationHasLocker = hasLocker(destinationCity?.name || null);
+    // Extract city names properly from RegionCity or City objects
+    const getDisplayName = (city: any) => {
+      if (!city) return null;
+      // Check if it's a RegionCity with names object
+      if (city.names) {
+        return city.names.ru || city.names.en || city.names.uz;
+      }
+      // Fallback to name property for regular City objects
+      return city.name || null;
+    };
+
+    const originCityName = getDisplayName(originCity);
+    const destinationCityName = getDisplayName(destinationCity);
+
+    const originHasWarehouse = hasWarehouse(originCityName);
+    const destinationHasWarehouse = hasWarehouse(destinationCityName);
+    const destinationHasLocker = hasLocker(destinationCityName);
 
     // For OFFICE_OFFICE, both cities need warehouses
     if (tariffType === "OFFICE_OFFICE") {
