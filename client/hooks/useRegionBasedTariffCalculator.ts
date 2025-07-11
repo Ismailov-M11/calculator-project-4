@@ -241,10 +241,9 @@ export function useRegionBasedTariffCalculator() {
       convertedDestinationCity.name,
     );
 
-    const hasOriginServices =
-      originWarehouses.length > 0 || originLockers.length > 0;
+    const hasOriginServices = hasOriginWarehouse || hasOriginLocker;
     const hasDestinationServices =
-      destinationWarehouses.length > 0 || destinationLockers.length > 0;
+      hasDestinationWarehouse || hasDestinationLocker;
 
     // Block if required services are not available
     if (needsOriginOffice && !hasOriginServices) {
