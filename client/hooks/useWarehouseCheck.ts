@@ -294,9 +294,23 @@ export function useWarehouseCheck() {
   ): boolean => {
     if (!originCity || !destinationCity || !tariffType || loading) return true;
 
-    const originHasWarehouse = hasWarehouse(originCity.name);
-    const destinationHasWarehouse = hasWarehouse(destinationCity.name);
-    const destinationHasLocker = hasLocker(destinationCity.name);
+    // Extract city names properly from RegionCity or City objects
+    const getDisplayName = (city: any) => {
+      if (!city) return null;
+      // Check if it's a RegionCity with names object
+      if (city.names) {
+        return city.names.ru || city.names.en || city.names.uz;
+      }
+      // Fallback to name property for regular City objects
+      return city.name || null;
+    };
+
+    const originCityName = getDisplayName(originCity);
+    const destinationCityName = getDisplayName(destinationCity);
+
+    const originHasWarehouse = hasWarehouse(originCityName);
+    const destinationHasWarehouse = hasWarehouse(destinationCityName);
+    const destinationHasLocker = hasLocker(destinationCityName);
 
     switch (tariffType) {
       case "OFFICE_OFFICE":
