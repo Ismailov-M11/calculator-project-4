@@ -45,16 +45,68 @@ export function useWarehouseCheck() {
     fetchData();
   }, []);
 
+  // Normalize city names for better matching
+  const normalizeCityName = (name: string): string => {
+    return name
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-zA-Zа-яёўқғҳ\s]/g, "") // Remove special characters but keep letters and spaces
+      .replace(/\s+/g, " ") // Replace multiple spaces with single space
+      .replace(/(город|city|shahri|tumani|viloyati|oblast|region)/gi, "") // Remove common city suffixes
+      .trim();
+  };
+
   // Check if a city has a warehouse
   const hasWarehouse = (cityName: string | null): boolean => {
     if (!cityName || warehouses.length === 0) return false;
 
-    // Clean city name for comparison (remove extra spaces, convert to lowercase)
-    const cleanCityName = cityName.trim().toLowerCase();
-
-    return warehouses.some(
-      (warehouse) => warehouse.city.trim().toLowerCase() === cleanCityName,
+    console.log("Checking warehouse for city:", cityName);
+    console.log(
+      "Available warehouse cities:",
+      warehouses.map((w) => w.city),
     );
+
+    const normalizedSearchCity = normalizeCityName(cityName);
+    console.log("Normalized search city:", normalizedSearchCity);
+
+    const found = warehouses.some((warehouse) => {
+      const normalizedWarehouseCity = normalizeCityName(warehouse.city);
+      console.log(
+        `Comparing "${normalizedSearchCity}" with "${normalizedWarehouseCity}"`,
+      );
+
+      // Try exact match
+      if (normalizedWarehouseCity === normalizedSearchCity) {
+        return true;
+      }
+
+      // Try partial match (warehouse city contains search city or vice versa)
+      if (
+        normalizedWarehouseCity.includes(normalizedSearchCity) ||
+        normalizedSearchCity.includes(normalizedWarehouseCity)
+      ) {
+        return true;
+      }
+
+      // Try word-by-word comparison for compound names
+      const searchWords = normalizedSearchCity
+        .split(" ")
+        .filter((w) => w.length > 2);
+      const warehouseWords = normalizedWarehouseCity
+        .split(" ")
+        .filter((w) => w.length > 2);
+
+      return searchWords.some((searchWord) =>
+        warehouseWords.some(
+          (warehouseWord) =>
+            warehouseWord.includes(searchWord) ||
+            searchWord.includes(warehouseWord),
+        ),
+      );
+    });
+
+    console.log(`Warehouse found for ${cityName}:`, found);
+    return found;
   };
 
   // Check if a city has a locker (postamat)
