@@ -107,7 +107,7 @@ const translations: Record<Language, Translations> = {
       "Выберите города, тип тарифа и вес посылки для расчета",
     originCity: "Город отправления",
     destinationCity: "Город назначения",
-    selectOriginCity: "Выберите город о��правления",
+    selectOriginCity: "Выберите город отправления",
     selectDestinationCity: "Выберите город назначения",
     tariffType: "Тип тарифа",
     weight: "Вес (кг)",
@@ -131,7 +131,7 @@ const translations: Record<Language, Translations> = {
     noDestinationWarehouse:
       'В городе доставки "{city}" нет пункта выдачи Fargo',
     noWarehouses: "В городах отправки и доставки нет пунктов выдачи Fargo",
-    noOriginLocker: 'В городе отправки "{city}" нет постамата Fargo',
+    noOriginLocker: 'В городе отправки "{city}" нет пос��амата Fargo',
     noDestinationLocker: 'В городе доставки "{city}" нет постамата Fargo',
     noLockers: "В городах отправки и доставки нет постаматов Fargo",
     noOriginWarehouseAndDestinationLocker:
