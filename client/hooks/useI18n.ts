@@ -178,11 +178,11 @@ const translations: Record<Language, Translations> = {
     phone: "Телефон",
     coordinates: "Координаты",
     foundFrom: "Найдено: {count} из {total}",
-    displayedCount: "Отображено: {count}",
+    displayedCount: "Найдено: {count}",
     nothingFound: "Ничего не найдено",
     tryChangeFilters: "Попробуйте изменить фильтры или поисковый запрос",
     mapTitle: "Карта расположения",
-    displayed: "Отображено",
+    displayed: "От��бражено",
     objects: "объектов",
     city: "Город",
     findNearest:
