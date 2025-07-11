@@ -107,7 +107,7 @@ const translations: Record<Language, Translations> = {
       "Выберите города, тип тарифа и вес посылки для расчета",
     originCity: "Город отправления",
     destinationCity: "Город назначения",
-    selectOriginCity: "Выберите город отправления",
+    selectOriginCity: "Выберите город о��правления",
     selectDestinationCity: "Выберите город назначения",
     tariffType: "Тип тарифа",
     weight: "Вес (кг)",
@@ -182,7 +182,7 @@ const translations: Record<Language, Translations> = {
     nothingFound: "Ничего не найдено",
     tryChangeFilters: "Попробуйте изменить фильтры или поисковый запрос",
     mapTitle: "Карта расположения",
-    displayed: "Отобра��ено",
+    displayed: "Отображено",
     objects: "объектов",
     city: "Город",
     findNearest:
