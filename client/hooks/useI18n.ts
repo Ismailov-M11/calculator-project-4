@@ -130,7 +130,7 @@ const translations: Record<Language, Translations> = {
     noOriginWarehouse: 'В городе отправки "{city}" нет пункта выдачи Fargo',
     noDestinationWarehouse:
       'В городе доставки "{city}" нет пункта выдачи Fargo',
-    noWarehouses: "В городах отправки и дост��вки нет пунктов выдачи Fargo",
+    noWarehouses: "В городах отправки и доставки нет пунктов выдачи Fargo",
     noOriginLocker: 'В городе отправки "{city}" нет постамата Fargo',
     noDestinationLocker: 'В городе доставки "{city}" нет постамата Fargo',
     noLockers: "В городах отправки и доставки нет постаматов Fargo",
@@ -182,7 +182,7 @@ const translations: Record<Language, Translations> = {
     nothingFound: "Ничего не найдено",
     tryChangeFilters: "Попробуйте изменить фильтры или поисковый запрос",
     mapTitle: "Карта расположения",
-    displayed: "Отображено",
+    displayed: "О��ображено",
     objects: "объектов",
     city: "Город",
     findNearest:
@@ -367,7 +367,7 @@ const translations: Record<Language, Translations> = {
     phone: "Telefon",
     coordinates: "Koordinatalar",
     foundFrom: "Topildi: {count} dan {total}",
-    displayedCount: "Ko'rsatildi: {count}",
+    displayedCount: "Topildi: {count}",
     nothingFound: "Hech narsa topilmadi",
     tryChangeFilters: "Filtrlar yoki qidiruv so'rovini o'zgartirib ko'ring",
     mapTitle: "Joylashuv xaritasi",
