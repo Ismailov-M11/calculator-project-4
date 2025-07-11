@@ -89,28 +89,31 @@ export function useRegionBasedTariffCalculator() {
       };
     }
 
-    // Check warehouses by city name from API
-    const originWarehouses = warehouseData.warehouses.filter(
-      (w) => w.city?.toLowerCase() === convertedOriginCity.name?.toLowerCase(),
+    // Use the proper warehouse checking logic instead of simple filtering
+    console.log("🔄 TARIFF CALCULATOR: Checking warehouses for:");
+    console.log("  Origin:", convertedOriginCity.name);
+    console.log("  Destination:", convertedDestinationCity.name);
+
+    const hasOriginWarehouse = warehouseData.hasWarehouse(
+      convertedOriginCity.name,
     );
-    const destinationWarehouses = warehouseData.warehouses.filter(
-      (w) =>
-        w.city?.toLowerCase() === convertedDestinationCity.name?.toLowerCase(),
+    const hasDestinationWarehouse = warehouseData.hasWarehouse(
+      convertedDestinationCity.name,
+    );
+    const hasOriginLocker = warehouseData.hasLocker(convertedOriginCity.name);
+    const hasDestinationLocker = warehouseData.hasLocker(
+      convertedDestinationCity.name,
     );
 
-    // Check lockers by city name from API
-    const originLockers = warehouseData.lockers.filter(
-      (l) => l.city?.toLowerCase() === convertedOriginCity.name?.toLowerCase(),
-    );
-    const destinationLockers = warehouseData.lockers.filter(
-      (l) =>
-        l.city?.toLowerCase() === convertedDestinationCity.name?.toLowerCase(),
-    );
-
-    const hasOriginServices =
-      originWarehouses.length > 0 || originLockers.length > 0;
+    const hasOriginServices = hasOriginWarehouse || hasOriginLocker;
     const hasDestinationServices =
-      destinationWarehouses.length > 0 || destinationLockers.length > 0;
+      hasDestinationWarehouse || hasDestinationLocker;
+
+    console.log("🔄 TARIFF CALCULATOR: Results:");
+    console.log("  Origin warehouse:", hasOriginWarehouse);
+    console.log("  Origin locker:", hasOriginLocker);
+    console.log("  Destination warehouse:", hasDestinationWarehouse);
+    console.log("  Destination locker:", hasDestinationLocker);
 
     // Use city names from selected RegionCity according to current language
     const getDisplayName = (regionCity: RegionCity) => {
