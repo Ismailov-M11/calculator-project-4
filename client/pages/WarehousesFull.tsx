@@ -326,7 +326,7 @@ export default function WarehousesFull() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left side - Filters and List */}
           <div className="flex flex-col">
-            <Card className="h-auto lg:h-[600px] flex flex-col">
+            <Card className="h-[70vh] lg:h-[600px] flex flex-col">
               <CardContent className="p-6 flex flex-col h-full space-y-4">
                 {/* Search and Filter */}
                 <div className="flex gap-3">
