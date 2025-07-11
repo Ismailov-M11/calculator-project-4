@@ -113,12 +113,52 @@ export function useWarehouseCheck() {
   const hasLocker = (cityName: string | null): boolean => {
     if (!cityName || lockers.length === 0) return false;
 
-    // Clean city name for comparison (remove extra spaces, convert to lowercase)
-    const cleanCityName = cityName.trim().toLowerCase();
-
-    return lockers.some(
-      (locker) => locker.city.trim().toLowerCase() === cleanCityName,
+    console.log("Checking locker for city:", cityName);
+    console.log(
+      "Available locker cities:",
+      lockers.map((l) => l.city),
     );
+
+    const normalizedSearchCity = normalizeCityName(cityName);
+    console.log("Normalized search city for locker:", normalizedSearchCity);
+
+    const found = lockers.some((locker) => {
+      const normalizedLockerCity = normalizeCityName(locker.city);
+      console.log(
+        `Comparing locker "${normalizedSearchCity}" with "${normalizedLockerCity}"`,
+      );
+
+      // Try exact match
+      if (normalizedLockerCity === normalizedSearchCity) {
+        return true;
+      }
+
+      // Try partial match (locker city contains search city or vice versa)
+      if (
+        normalizedLockerCity.includes(normalizedSearchCity) ||
+        normalizedSearchCity.includes(normalizedLockerCity)
+      ) {
+        return true;
+      }
+
+      // Try word-by-word comparison for compound names
+      const searchWords = normalizedSearchCity
+        .split(" ")
+        .filter((w) => w.length > 2);
+      const lockerWords = normalizedLockerCity
+        .split(" ")
+        .filter((w) => w.length > 2);
+
+      return searchWords.some((searchWord) =>
+        lockerWords.some(
+          (lockerWord) =>
+            lockerWord.includes(searchWord) || searchWord.includes(lockerWord),
+        ),
+      );
+    });
+
+    console.log(`Locker found for ${cityName}:`, found);
+    return found;
   };
 
   // Check if warehouse warning should be shown for selected tariff type
