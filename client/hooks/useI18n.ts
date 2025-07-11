@@ -112,7 +112,7 @@ const translations: Record<Language, Translations> = {
     tariffType: "Тип тарифа",
     weight: "Вес (кг)",
     weightPlaceholder: "Введите вес в килограммах",
-    calculate: "��ассчитать стоимость",
+    calculate: "Рассчитать стоимость",
     clear: "Очистить",
 
     fillAllFields: "Пожалуйста, заполните все поля",
