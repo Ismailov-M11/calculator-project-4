@@ -184,53 +184,41 @@ export function useWarehouseCheck() {
 
   // Check if a city has a locker (postamat)
   const hasLocker = (cityName: string | null): boolean => {
-    if (!cityName || lockers.length === 0) return false;
+    if (!cityName || lockers.length === 0) {
+      console.log(
+        `❌ No locker check possible for "${cityName}" - ${lockers.length} lockers available`,
+      );
+      return false;
+    }
 
-    console.log("Checking locker for city:", cityName);
-    console.log(
-      "Available locker cities:",
-      lockers.map((l) => l.city),
-    );
+    console.log(`🔍 Checking locker for city: "${cityName}"`);
 
     const normalizedSearchCity = normalizeCityName(cityName);
-    console.log("Normalized search city for locker:", normalizedSearchCity);
+    let found = false;
 
-    const found = lockers.some((locker) => {
+    for (const locker of lockers) {
       const normalizedLockerCity = normalizeCityName(locker.city);
-      console.log(
-        `Comparing locker "${normalizedSearchCity}" with "${normalizedLockerCity}"`,
-      );
 
-      // Try exact match
-      if (normalizedLockerCity === normalizedSearchCity) {
-        return true;
-      }
-
-      // Try partial match (locker city contains search city or vice versa)
       if (
+        normalizedLockerCity === normalizedSearchCity ||
         normalizedLockerCity.includes(normalizedSearchCity) ||
         normalizedSearchCity.includes(normalizedLockerCity)
       ) {
-        return true;
+        found = true;
+        console.log(
+          `✅ LOCKER FOUND for "${cityName}":`,
+          locker.name,
+          "in",
+          locker.city,
+        );
+        break;
       }
+    }
 
-      // Try word-by-word comparison for compound names
-      const searchWords = normalizedSearchCity
-        .split(" ")
-        .filter((w) => w.length > 2);
-      const lockerWords = normalizedLockerCity
-        .split(" ")
-        .filter((w) => w.length > 2);
+    if (!found) {
+      console.log(`❌ NO LOCKER found for "${cityName}"`);
+    }
 
-      return searchWords.some((searchWord) =>
-        lockerWords.some(
-          (lockerWord) =>
-            lockerWord.includes(searchWord) || searchWord.includes(lockerWord),
-        ),
-      );
-    });
-
-    console.log(`Locker found for ${cityName}:`, found);
     return found;
   };
 
