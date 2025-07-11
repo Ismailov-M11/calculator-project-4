@@ -213,14 +213,14 @@ export function useWarehouseCheck() {
         return {
           show: true,
           message: formatMessage(t.noOriginWarehouse, {
-            city: originCity?.name || "",
+            city: originCityName || "",
           }),
         };
       } else if (!destinationHasWarehouse) {
         return {
           show: true,
           message: formatMessage(t.noDestinationWarehouse, {
-            city: destinationCity?.name || "",
+            city: destinationCityName || "",
           }),
         };
       }
@@ -242,22 +242,22 @@ export function useWarehouseCheck() {
         return {
           show: true,
           message: formatMessage(t.noOriginWarehouseAndDestinationLocker, {
-            originCity: originCity?.name || "",
-            destinationCity: destinationCity?.name || "",
+            originCity: originCityName || "",
+            destinationCity: destinationCityName || "",
           }),
         };
       } else if (!originHasWarehouse) {
         return {
           show: true,
           message: formatMessage(t.noOriginWarehouse, {
-            city: originCity?.name || "",
+            city: originCityName || "",
           }),
         };
       } else if (!destinationHasLocker) {
         return {
           show: true,
           message: formatMessage(t.noDestinationLocker, {
-            city: destinationCity?.name || "",
+            city: destinationCityName || "",
           }),
         };
       }
