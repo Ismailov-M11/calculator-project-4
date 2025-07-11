@@ -229,22 +229,16 @@ export function useRegionBasedTariffCalculator() {
       return false; // No warehouse requirements for this tariff
     }
 
-    // Check warehouse availability
-    const originWarehouses = warehouseData.warehouses.filter(
-      (w) => w.city?.toLowerCase() === convertedOriginCity.name?.toLowerCase(),
+    // Use the proper warehouse checking logic
+    const hasOriginWarehouse = warehouseData.hasWarehouse(
+      convertedOriginCity.name,
     );
-    const destinationWarehouses = warehouseData.warehouses.filter(
-      (w) =>
-        w.city?.toLowerCase() === convertedDestinationCity.name?.toLowerCase(),
+    const hasDestinationWarehouse = warehouseData.hasWarehouse(
+      convertedDestinationCity.name,
     );
-
-    // Check locker availability
-    const originLockers = warehouseData.lockers.filter(
-      (l) => l.city?.toLowerCase() === convertedOriginCity.name?.toLowerCase(),
-    );
-    const destinationLockers = warehouseData.lockers.filter(
-      (l) =>
-        l.city?.toLowerCase() === convertedDestinationCity.name?.toLowerCase(),
+    const hasOriginLocker = warehouseData.hasLocker(convertedOriginCity.name);
+    const hasDestinationLocker = warehouseData.hasLocker(
+      convertedDestinationCity.name,
     );
 
     const hasOriginServices =
