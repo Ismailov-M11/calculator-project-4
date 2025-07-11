@@ -362,7 +362,7 @@ export function TariffTables() {
   const getDeliveryZonesTitle = () => {
     switch (language) {
       case "ru":
-        return "З��ны доставки";
+        return "Зоны доставки";
       case "uz":
         return "Yetkazib berish zonalari";
       case "en":
