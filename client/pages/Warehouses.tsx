@@ -289,7 +289,7 @@ export default function Warehouses() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left side - Filters and List */}
-          <div className="flex flex-col space-y-4 lg:h-[600px]">
+          <div className="flex flex-col space-y-4 h-[70vh] lg:h-[600px]">
             {/* Search and Filter */}
             <div className="flex gap-3">
               <div className="relative flex-1">
