@@ -130,7 +130,7 @@ const translations: Record<Language, Translations> = {
     noOriginWarehouse: 'В городе отправки "{city}" нет пункта выдачи Fargo',
     noDestinationWarehouse:
       'В городе доставки "{city}" нет пункта выдачи Fargo',
-    noWarehouses: "В городах отправки и доставки нет пунктов выдачи Fargo",
+    noWarehouses: "В городах отправки и дост��вки нет пунктов выдачи Fargo",
     noOriginLocker: 'В городе отправки "{city}" нет постамата Fargo',
     noDestinationLocker: 'В городе доставки "{city}" нет постамата Fargo',
     noLockers: "В городах отправки и доставки нет постаматов Fargo",
@@ -272,7 +272,7 @@ const translations: Record<Language, Translations> = {
     phone: "Phone",
     coordinates: "Coordinates",
     foundFrom: "Found: {count} of {total}",
-    displayedCount: "Displayed: {count}",
+    displayedCount: "Found: {count}",
     nothingFound: "Nothing found",
     tryChangeFilters: "Try changing filters or search query",
     mapTitle: "Location map",
