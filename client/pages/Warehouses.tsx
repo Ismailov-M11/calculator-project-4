@@ -325,7 +325,7 @@ export default function Warehouses() {
             </div>
 
             {/* Items List */}
-            <div className="space-y-3 flex-1 overflow-y-auto lg:max-h-[480px]">
+            <div className="space-y-3 flex-1 overflow-y-auto max-h-[50vh] lg:max-h-[480px]">
               {selectedItems.map((item) => (
                 <Card
                   key={item.id}
