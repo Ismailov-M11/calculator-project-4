@@ -81,37 +81,58 @@ export function useWarehouseCheck() {
 
   // Check if a city has a warehouse
   const hasWarehouse = (cityName: string | null): boolean => {
-    if (!cityName || warehouses.length === 0) return false;
+    if (!cityName || warehouses.length === 0) {
+      console.log(
+        `❌ No warehouse check possible for "${cityName}" - ${warehouses.length} warehouses available`,
+      );
+      return false;
+    }
 
-    console.log("Checking warehouse for city:", cityName);
-    console.log(
-      "Available warehouse cities:",
-      warehouses.map((w) => w.city),
-    );
+    console.log(`🔍 Checking warehouse for city: "${cityName}"`);
 
     const normalizedSearchCity = normalizeCityName(cityName);
-    console.log("Normalized search city:", normalizedSearchCity);
+    console.log(`🔍 Normalized search: "${normalizedSearchCity}"`);
 
-    const found = warehouses.some((warehouse) => {
+    // First, let's see all available warehouse cities for debugging
+    const warehouseCities = warehouses.map((w) => w.city);
+    console.log("📍 Available warehouse cities:", warehouseCities);
+
+    let found = false;
+    let matchedWarehouse = null;
+
+    for (const warehouse of warehouses) {
       const normalizedWarehouseCity = normalizeCityName(warehouse.city);
-      console.log(
-        `Comparing "${normalizedSearchCity}" with "${normalizedWarehouseCity}"`,
-      );
 
-      // Try exact match
+      // Try exact match first
       if (normalizedWarehouseCity === normalizedSearchCity) {
-        return true;
+        found = true;
+        matchedWarehouse = warehouse;
+        console.log(
+          `✅ EXACT MATCH: "${normalizedSearchCity}" === "${normalizedWarehouseCity}"`,
+        );
+        break;
       }
 
-      // Try partial match (warehouse city contains search city or vice versa)
-      if (
-        normalizedWarehouseCity.includes(normalizedSearchCity) ||
-        normalizedSearchCity.includes(normalizedWarehouseCity)
-      ) {
-        return true;
+      // Try if one contains the other
+      if (normalizedWarehouseCity.includes(normalizedSearchCity)) {
+        found = true;
+        matchedWarehouse = warehouse;
+        console.log(
+          `✅ CONTAINS MATCH: "${normalizedWarehouseCity}" contains "${normalizedSearchCity}"`,
+        );
+        break;
       }
 
-      // Try word-by-word comparison for compound names
+      if (normalizedSearchCity.includes(normalizedWarehouseCity)) {
+        found = true;
+        matchedWarehouse = warehouse;
+        console.log(
+          `✅ CONTAINED MATCH: "${normalizedSearchCity}" contains "${normalizedWarehouseCity}"`,
+        );
+        break;
+      }
+
+      // Try core word matching for compound names like "Андижан" vs "Andijon shahri"
       const searchWords = normalizedSearchCity
         .split(" ")
         .filter((w) => w.length > 2);
@@ -119,16 +140,45 @@ export function useWarehouseCheck() {
         .split(" ")
         .filter((w) => w.length > 2);
 
-      return searchWords.some((searchWord) =>
-        warehouseWords.some(
-          (warehouseWord) =>
-            warehouseWord.includes(searchWord) ||
-            searchWord.includes(warehouseWord),
-        ),
+      const wordMatch = searchWords.some((searchWord) =>
+        warehouseWords.some((warehouseWord) => {
+          if (searchWord === warehouseWord) return true;
+          if (searchWord.length >= 4 && warehouseWord.length >= 4) {
+            return (
+              searchWord.includes(warehouseWord) ||
+              warehouseWord.includes(searchWord)
+            );
+          }
+          return false;
+        }),
       );
-    });
 
-    console.log(`Warehouse found for ${cityName}:`, found);
+      if (wordMatch) {
+        found = true;
+        matchedWarehouse = warehouse;
+        console.log(
+          `✅ WORD MATCH: Words from "${normalizedSearchCity}" match words in "${normalizedWarehouseCity}"`,
+        );
+        break;
+      }
+    }
+
+    if (found && matchedWarehouse) {
+      console.log(
+        `✅ WAREHOUSE FOUND for "${cityName}":`,
+        matchedWarehouse.name,
+        "in",
+        matchedWarehouse.city,
+      );
+    } else {
+      console.log(`❌ NO WAREHOUSE found for "${cityName}"`);
+      console.log(`❌ Searched for normalized: "${normalizedSearchCity}"`);
+      console.log(
+        `❌ Available normalized warehouse cities:`,
+        warehouses.map((w) => `"${normalizeCityName(w.city)}"`),
+      );
+    }
+
     return found;
   };
 
