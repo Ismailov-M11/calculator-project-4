@@ -46,7 +46,14 @@ export function useWarehouseCheck() {
         const lockersResponse = await fetch("/api/lockers");
         if (lockersResponse.ok) {
           const lockersData = await lockersResponse.json();
-          setLockers(lockersData.data?.list || lockersData.data || []);
+          const lockersList = lockersData.data?.list || lockersData.data || [];
+          console.log("🏪 LOCKER DATA DEBUG:");
+          console.log("Raw locker data:", lockersData);
+          console.log(
+            "Locker cities:",
+            lockersList.map((l) => ({ id: l.id, name: l.name, city: l.city })),
+          );
+          setLockers(lockersList);
         } else {
           console.error("Failed to fetch lockers:", lockersResponse.status);
         }
