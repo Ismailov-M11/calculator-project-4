@@ -182,7 +182,7 @@ const translations: Record<Language, Translations> = {
     nothingFound: "Ничего не найдено",
     tryChangeFilters: "Попробуйте изменить фильтры или поисковый запрос",
     mapTitle: "Карта расположения",
-    displayed: "От��бражено",
+    displayed: "Отобра��ено",
     objects: "объектов",
     city: "Город",
     findNearest:
