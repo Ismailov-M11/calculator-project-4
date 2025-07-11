@@ -18,7 +18,23 @@ export function useWarehouseCheck() {
         const warehousesResponse = await fetch("/api/warehouses");
         if (warehousesResponse.ok) {
           const warehousesData = await warehousesResponse.json();
-          setWarehouses(warehousesData.data?.list || warehousesData.data || []);
+          const warehousesList =
+            warehousesData.data?.list || warehousesData.data || [];
+          console.log("🏭 WAREHOUSE DATA DEBUG:");
+          console.log("Raw warehouse data:", warehousesData);
+          console.log(
+            "Warehouse cities:",
+            warehousesList.map((w) => ({
+              id: w.id,
+              name: w.name,
+              city: w.city,
+            })),
+          );
+          console.log(
+            "Looking for Andijan in:",
+            warehousesList.map((w) => w.city),
+          );
+          setWarehouses(warehousesList);
         } else {
           console.error(
             "Failed to fetch warehouses:",
