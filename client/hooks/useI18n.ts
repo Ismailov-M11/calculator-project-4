@@ -112,7 +112,7 @@ const translations: Record<Language, Translations> = {
     tariffType: "Тип тарифа",
     weight: "Вес (кг)",
     weightPlaceholder: "Введите вес в килограммах",
-    calculate: "Рассчитать стоимость",
+    calculate: "��ассчитать стоимость",
     clear: "Очистить",
 
     fillAllFields: "Пожалуйста, заполните все поля",
@@ -131,9 +131,9 @@ const translations: Record<Language, Translations> = {
     noDestinationWarehouse:
       'В городе доставки "{city}" нет пункта выдачи Fargo',
     noWarehouses: "В городах отправки и доставки нет пунктов выдачи Fargo",
-    noOriginLocker: 'В городе отправки "{city}" нет пос��амата Fargo',
+    noOriginLocker: 'В городе отправки "{city}" нет постамата Fargo',
     noDestinationLocker: 'В городе доставки "{city}" нет постамата Fargo',
-    noLockers: "В городах отправки и доставки нет постаматов Fargo",
+    noLockers: "В город��х отправки и доставки нет постаматов Fargo",
     noOriginWarehouseAndDestinationLocker:
       'В городе отправки "{originCity}" нет пункта выдачи Fargo, а в городе доставки "{destinationCity}" нет постамата Fargo',
 
@@ -182,7 +182,7 @@ const translations: Record<Language, Translations> = {
     nothingFound: "Ничего не найдено",
     tryChangeFilters: "Попробуйте изменить фильтры или поисковый запрос",
     mapTitle: "Карта расположения",
-    displayed: "О��ображено",
+    displayed: "Отображено",
     objects: "объектов",
     city: "Город",
     findNearest:
