@@ -237,14 +237,14 @@ export default function Index() {
                   <div className="flex items-center justify-center gap-3 text-sm font-medium">
                     <Badge
                       variant="default"
-                      className="px-3 py-1 bg-slate-800 hover:bg-slate-900 text-white"
+                      className="px-3 py-1 bg-slate-800 hover:bg-slate-900 text-white text-center"
                     >
                       {getCityDisplayName(form.originCity)}
                     </Badge>
-                    <ArrowRight className="h-4 w-4 text-red-600" />
+                    <ArrowRight className="h-4 w-4 text-red-600 shrink-0" />
                     <Badge
                       variant="default"
-                      className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white"
+                      className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-center"
                     >
                       {getCityDisplayName(form.destinationCity)}
                     </Badge>
