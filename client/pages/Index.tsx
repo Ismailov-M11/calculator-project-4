@@ -88,6 +88,25 @@ export default function Index() {
     return `${days} ${t.days}`;
   };
 
+  // Auto-scroll to results when they appear
+  useEffect(() => {
+    if (
+      result &&
+      result.data &&
+      result.data.list &&
+      result.data.list.length > 0 &&
+      !loading &&
+      resultsRef.current
+    ) {
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 300); // Small delay to ensure the results are fully rendered
+    }
+  }, [result, loading]);
+
   // Get localized tariff type names
   const getTariffTypes = () => [
     { value: "OFFICE_OFFICE", label: t.officeOffice },
