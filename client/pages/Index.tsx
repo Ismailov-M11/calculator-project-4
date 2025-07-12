@@ -233,24 +233,21 @@ export default function Index() {
 
               {/* Route Display */}
               {form.originCity && form.destinationCity && (
-                <div className="bg-gradient-to-r from-emerald-100 via-blue-100 to-purple-100 border-2 border-gradient-to-r from-emerald-300 to-purple-300 rounded-xl p-5 shadow-md">
-                  <div className="flex items-center justify-center gap-4 text-base font-semibold">
+                <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                  <div className="flex items-center justify-center gap-3 text-sm font-medium">
                     <Badge
                       variant="default"
-                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
+                      className="px-3 py-1 bg-slate-800 hover:bg-slate-900 text-white"
                     >
                       {getCityDisplayName(form.originCity)}
                     </Badge>
-                    <ArrowRight className="h-5 w-5 text-blue-600 animate-pulse" />
+                    <ArrowRight className="h-4 w-4 text-red-600" />
                     <Badge
                       variant="default"
-                      className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white shadow-sm"
+                      className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white"
                     >
                       {getCityDisplayName(form.destinationCity)}
                     </Badge>
-                  </div>
-                  <div className="text-center mt-2 text-sm text-gray-700 font-medium">
-                    {t.selectedRoute || "Выбранный маршрут"}
                   </div>
                 </div>
               )}
