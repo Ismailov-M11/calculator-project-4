@@ -215,7 +215,7 @@ const cities = [
   "Джизак",
   "Самарканд",
   "Каттакурган",
-  "Фергана",
+  "Фе��гана",
   "Коканд",
   "Наманган",
   "Андижан",
@@ -422,7 +422,7 @@ export function TariffTables() {
           title: "Надбавка за стоимость",
           cost: "Стоимость: 1% (без учета НДС 12%)",
           description:
-            "Дополнительный платеж, уплачиваемый Заказчиком Исполнителю при оглашении стоимости почтового отправления. Расчет размера дополнительного платежа производится по формуле - дополнительный платеж от стоимости (суммы) = 1% x объявленная стоимость (сумма).",
+            "Дополнительный платеж, уплачиваемый Заказчиком Исполнителю при оглашении стоимости почтового отправления. Расчет размера дополнительного платежа производится по фо��муле - дополнительный платеж от стоимости (суммы) = 1% x объявленная стоимость (сумма).",
         };
       case "uz":
         return {
@@ -490,7 +490,7 @@ export function TariffTables() {
       case "ru":
         return {
           title:
-            "Во всех действующих тарифах используется следующая логика подсчета стоимости доставки за каждый килограмм:",
+            "Во всех действующих тарифах используется следующая логика подсчета стоимости дост��вки за каждый килограмм:",
           rates: [
             "от 1 кг до 99 кг – каждый килограмм по 5000 сум",
             "от 100 кг до 499 кг – каждый килограмм по 4000 сум",
@@ -690,7 +690,7 @@ export function TariffTables() {
       <Card className="border-0 shadow-lg bg-white/90 backdrop-blur-sm">
         <CardContent className="p-3 lg:p-6 w-full">
           <div className="overflow-x-auto w-full">
-            <table className="w-full border-collapse min-w-[700px] lg:min-w-[900px] text-xs lg:text-sm">
+            <table className="w-full border-collapse min-w-[700px] xl:min-w-0 text-xs lg:text-sm">
               <thead>
                 <tr className="bg-red-600 text-white">
                   <th className="border border-white px-1 py-2 text-xs lg:text-sm font-medium text-center sticky left-0 bg-red-600 z-10">
