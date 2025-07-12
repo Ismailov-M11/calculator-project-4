@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Calculator,
   Package,
@@ -41,6 +41,7 @@ import { TariffType } from "@shared/api";
 
 export default function Index() {
   const { t, language } = useI18n();
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const getCityDisplayName = (city: any) => {
     if (!city) return "";
@@ -213,15 +214,24 @@ export default function Index() {
 
               {/* Route Display */}
               {form.originCity && form.destinationCity && (
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
-                  <div className="flex items-center justify-center gap-3 text-sm font-medium">
-                    <Badge variant="secondary" className="px-3 py-1">
+                <div className="bg-gradient-to-r from-emerald-100 via-blue-100 to-purple-100 border-2 border-gradient-to-r from-emerald-300 to-purple-300 rounded-xl p-5 shadow-md">
+                  <div className="flex items-center justify-center gap-4 text-base font-semibold">
+                    <Badge
+                      variant="default"
+                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
+                    >
                       {getCityDisplayName(form.originCity)}
                     </Badge>
-                    <ArrowRight className="h-4 w-4 text-gray-400" />
-                    <Badge variant="secondary" className="px-3 py-1">
+                    <ArrowRight className="h-5 w-5 text-blue-600 animate-pulse" />
+                    <Badge
+                      variant="default"
+                      className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white shadow-sm"
+                    >
                       {getCityDisplayName(form.destinationCity)}
                     </Badge>
+                  </div>
+                  <div className="text-center mt-2 text-sm text-gray-700 font-medium">
+                    {t.selectedRoute || "Выбранный маршрут"}
                   </div>
                 </div>
               )}
@@ -298,7 +308,9 @@ export default function Index() {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <Button
-                  onClick={calculateTariff}
+                  onClick={() => {
+                    calculateTariff();
+                  }}
                   disabled={
                     !isFormValid() || loading || isCalculationDisabled()
                   }
@@ -350,7 +362,10 @@ export default function Index() {
             result.data.list &&
             result.data.list.length > 0 &&
             !loading && (
-              <Card className="border-0 shadow-xl bg-white/90 backdrop-blur-sm">
+              <Card
+                ref={resultsRef}
+                className="border-0 shadow-xl bg-white/90 backdrop-blur-sm"
+              >
                 <CardHeader>
                   <CardTitle className="text-xl flex items-center gap-2">
                     <CheckCircle className="h-5 w-5 text-green-600" />
