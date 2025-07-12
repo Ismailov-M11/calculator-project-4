@@ -234,7 +234,8 @@ export default function Index() {
               {/* Route Display */}
               {form.originCity && form.destinationCity && (
                 <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-                  <div className="flex items-center justify-center gap-3 text-sm font-medium">
+                  {/* Desktop/Tablet: Horizontal Layout */}
+                  <div className="hidden sm:flex items-center justify-center gap-3 text-sm font-medium">
                     <Badge
                       variant="default"
                       className="px-3 py-1 bg-slate-800 hover:bg-slate-900 text-white text-center"
@@ -247,6 +248,26 @@ export default function Index() {
                       className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-center"
                     >
                       {getCityDisplayName(form.destinationCity)}
+                    </Badge>
+                  </div>
+                  {/* Mobile: Vertical Layout */}
+                  <div className="flex sm:hidden flex-col items-center gap-2 text-sm font-medium">
+                    <Badge
+                      variant="default"
+                      className="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white text-center w-full max-w-xs"
+                    >
+                      <span className="break-words">
+                        {getCityDisplayName(form.originCity)}
+                      </span>
+                    </Badge>
+                    <ArrowRight className="h-4 w-4 text-red-600 shrink-0 rotate-90" />
+                    <Badge
+                      variant="default"
+                      className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-center w-full max-w-xs"
+                    >
+                      <span className="break-words">
+                        {getCityDisplayName(form.destinationCity)}
+                      </span>
                     </Badge>
                   </div>
                 </div>
