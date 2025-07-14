@@ -119,7 +119,6 @@ export function useWarehouseCheck() {
     });
 
     // STRICT MATCHING ONLY: exact string comparison (with whitespace trimming)
-    const trimmedCityName = cityName.trim();
     const exactMatch = warehouses.find(
       (warehouse) => warehouse.city.trim() === trimmedCityName,
     );
