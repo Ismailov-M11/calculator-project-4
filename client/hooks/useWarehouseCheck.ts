@@ -68,21 +68,6 @@ export function useWarehouseCheck() {
     fetchData();
   }, []);
 
-  // Normalize city names for better matching
-  const normalizeCityName = (name: string): string => {
-    return name
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-zA-Zа-яёўқғҳ\s]/g, "") // Remove special characters but keep letters and spaces
-      .replace(/\s+/g, " ") // Replace multiple spaces with single space
-      .replace(
-        /(город|city|shahri|tumani|viloyati|oblast|region|район|district)/gi,
-        "",
-      ) // Remove common city suffixes including район/district
-      .replace(/(ский|нский|ская|нская|ское|нское)/gi, "") // Remove Russian adjective endings
-      .trim();
-  };
-
   // Check if a city has a warehouse - STRICT MATCHING ONLY
   const hasWarehouse = (cityName: string | null): boolean => {
     if (!cityName || warehouses.length === 0) {
