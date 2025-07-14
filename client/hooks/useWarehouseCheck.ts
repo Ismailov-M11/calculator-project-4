@@ -177,6 +177,21 @@ export function useWarehouseCheck() {
         `❌ Available normalized warehouse cities:`,
         warehouses.map((w) => `"${normalizeCityName(w.city)}"`),
       );
+
+      // Extra debugging for the specific case
+      if (
+        cityName.toLowerCase().includes("иштыхан") ||
+        cityName.toLowerCase().includes("ishtixon")
+      ) {
+        console.log(
+          `🔍 SPECIAL DEBUG: Checking for "${cityName}" specifically`,
+        );
+        console.log(`🔍 Available warehouse cities (exact):`, warehouseCities);
+        console.log(
+          `🔍 Normalized warehouse cities:`,
+          warehouses.map((w) => normalizeCityName(w.city)),
+        );
+      }
     }
 
     return found;
