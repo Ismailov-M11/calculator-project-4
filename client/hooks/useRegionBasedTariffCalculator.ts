@@ -98,33 +98,6 @@ export function useRegionBasedTariffCalculator() {
       };
     }
 
-    // Get city names for warehouse checking - try multiple approaches
-    const getOriginCityName = () => {
-      // Try API city first if available
-      if (convertedOriginCity?.name) {
-        return convertedOriginCity.name;
-      }
-      // Fallback to RegionCity names
-      return (
-        form.originCity.names[language] ||
-        form.originCity.names.ru ||
-        form.originCity.names.en
-      );
-    };
-
-    const getDestinationCityName = () => {
-      // Try API city first if available
-      if (convertedDestinationCity?.name) {
-        return convertedDestinationCity.name;
-      }
-      // Fallback to RegionCity names
-      return (
-        form.destinationCity.names[language] ||
-        form.destinationCity.names.ru ||
-        form.destinationCity.names.en
-      );
-    };
-
     // CRITICAL: Only use API cities for warehouse checking - no fallbacks
     if (!convertedOriginCity || !convertedDestinationCity) {
       console.log(
