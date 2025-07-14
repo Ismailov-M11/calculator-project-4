@@ -125,20 +125,40 @@ export function useRegionBasedTariffCalculator() {
       );
     };
 
-    const originCityName = getOriginCityName();
-    const destinationCityName = getDestinationCityName();
+    // CRITICAL: Only use API cities for warehouse checking - no fallbacks
+    if (!convertedOriginCity || !convertedDestinationCity) {
+      console.log(
+        "🚨 EARLY RETURN - API cities not found, cannot check warehouses",
+      );
+      console.log("  convertedOriginCity:", convertedOriginCity);
+      console.log("  convertedDestinationCity:", convertedDestinationCity);
+      console.log("  Available API cities count:", apiCities.length);
+      console.log("  Origin shipox_id:", form.originCity.shipox_id);
+      console.log("  Destination shipox_id:", form.destinationCity.shipox_id);
 
-    // Use the proper warehouse checking logic instead of simple filtering
-    console.log("🔄 TARIFF CALCULATOR: Checking warehouses for:");
-    console.log("  Origin RegionCity:", form.originCity.names);
-    console.log("  Origin API City:", convertedOriginCity?.name || "NOT FOUND");
-    console.log("  Origin City Name for check:", originCityName);
-    console.log("  Destination RegionCity:", form.destinationCity.names);
+      // If we can't find the API cities, we cannot proceed with warehouse checks
+      // This means the selected RegionCity doesn't have a corresponding API city
+      return {
+        show: true,
+        type: "warning" as const,
+        message:
+          "Невозможно проверить доступность услуг в выбранных городах. Попробуйте выбрать другие города.",
+      };
+    }
+
+    // Use EXACT API city names for warehouse checking
+    const originCityName = convertedOriginCity.name;
+    const destinationCityName = convertedDestinationCity.name;
+
     console.log(
-      "  Destination API City:",
-      convertedDestinationCity?.name || "NOT FOUND",
+      "🔄 TARIFF CALCULATOR: Checking warehouses with API city names:",
     );
-    console.log("  Destination City Name for check:", destinationCityName);
+    console.log("  Origin RegionCity:", form.originCity.names);
+    console.log("  Origin API City ID:", convertedOriginCity.id);
+    console.log("  Origin API City Name:", originCityName);
+    console.log("  Destination RegionCity:", form.destinationCity.names);
+    console.log("  Destination API City ID:", convertedDestinationCity.id);
+    console.log("  Destination API City Name:", destinationCityName);
     console.log("  Tariff Type:", form.tariffType);
 
     const hasOriginWarehouse = warehouseData.hasWarehouse(originCityName);
