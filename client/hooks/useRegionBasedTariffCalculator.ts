@@ -290,14 +290,18 @@ export function useRegionBasedTariffCalculator() {
       }
     }
 
-    return {
+    const result = {
       show: false,
       type: "info" as const,
       message: "",
     };
+
+    console.log("🚨 WAREHOUSE WARNING FINAL RESULT:", result);
+    return result;
   };
 
   const warehouseWarning = createWarehouseWarning();
+  console.log("🚨 WAREHOUSE WARNING OBJECT:", warehouseWarning);
 
   const updateForm = (updates: Partial<RegionBasedTariffCalculatorForm>) => {
     setForm((prev) => ({ ...prev, ...updates }));
