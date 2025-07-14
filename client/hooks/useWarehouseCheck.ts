@@ -82,6 +82,9 @@ export function useWarehouseCheck() {
       `🔍 City name length: ${cityName.length}, char codes: ${Array.from(cityName).map((c) => c.charCodeAt(0))}`,
     );
 
+    // Trim the city name once at the beginning
+    const trimmedCityName = cityName.trim();
+
     // Get all available warehouse cities for debugging
     const warehouseCities = warehouses.map((w) => w.city);
     console.log("📍 Available warehouse cities:", warehouseCities);
