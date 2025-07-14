@@ -92,7 +92,6 @@ export function useWarehouseCheck() {
     // Enhanced debugging
     console.log("🏗️ DETAILED WAREHOUSE DEBUG:");
     console.log(`  Search city: "${cityName}" (length: ${cityName.length})`);
-    const trimmedCityName = cityName.trim();
     console.log(
       `  Trimmed city: "${trimmedCityName}" (length: ${trimmedCityName.length})`,
     );
