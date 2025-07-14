@@ -59,7 +59,7 @@ export function useRegionBasedTariffCalculator() {
     ? findApiCityByShipoxId(form.destinationCity)
     : null;
 
-  const warehouseData = useWarehouseCheck();
+const warehouseData = useWarehouseCheck();
 
   // Create warning based on warehouse check - only show when tariff type is selected and requires validation
   const createWarehouseWarning = () => {
