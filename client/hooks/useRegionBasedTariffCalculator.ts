@@ -176,6 +176,10 @@ export function useRegionBasedTariffCalculator() {
 
     // Check specific requirements based on tariff type
     if (form.tariffType === "OFFICE_OFFICE") {
+      console.log("🚨 CHECKING OFFICE_OFFICE tariff");
+      console.log("  hasOriginWarehouse:", hasOriginWarehouse);
+      console.log("  hasDestinationWarehouse:", hasDestinationWarehouse);
+
       if (!hasOriginWarehouse && !hasDestinationWarehouse) {
         return {
           show: true,
