@@ -94,12 +94,26 @@ export function useWarehouseCheck() {
 
     console.log(`🔍 Checking warehouse for city: "${cityName}"`);
 
-    const normalizedSearchCity = normalizeCityName(cityName);
-    console.log(`🔍 Normalized search: "${normalizedSearchCity}"`);
-
     // First, let's see all available warehouse cities for debugging
     const warehouseCities = warehouses.map((w) => w.city);
     console.log("📍 Available warehouse cities:", warehouseCities);
+
+    // Step 1: Try exact match first (case-insensitive)
+    const exactMatch = warehouses.find(
+      (w) => w.city.toLowerCase() === cityName.toLowerCase(),
+    );
+
+    if (exactMatch) {
+      console.log(
+        `✅ EXACT MATCH FOUND: "${cityName}" === "${exactMatch.city}"`,
+      );
+      console.log(`   Warehouse: ${exactMatch.name}`);
+      return true;
+    }
+
+    // Step 2: Try normalized matching for flexibility
+    const normalizedSearchCity = normalizeCityName(cityName);
+    console.log(`🔍 Normalized search: "${normalizedSearchCity}"`);
 
     let found = false;
     let matchedWarehouse = null;
