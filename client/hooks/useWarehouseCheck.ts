@@ -86,26 +86,37 @@ export function useWarehouseCheck() {
     const warehouseCities = warehouses.map((w) => w.city);
     console.log("📍 Available warehouse cities:", warehouseCities);
 
-    // Special debugging for Andijan variants
-    if (
-      cityName.toLowerCase().includes("andij") ||
-      cityName.toLowerCase().includes("анд")
-    ) {
-      console.log("🏗️ ANDIJAN DEBUG:");
-      console.log(`  Search city: "${cityName}" (length: ${cityName.length})`);
-      warehouses.forEach((w, i) => {
-        const match = w.city === cityName;
-        console.log(
-          `  Warehouse ${i}: "${w.city}" (length: ${w.city.length}) - Match: ${match}`,
-        );
+    // Enhanced debugging
+    console.log("🏗️ DETAILED WAREHOUSE DEBUG:");
+    console.log(`  Search city: "${cityName}" (length: ${cityName.length})`);
+    const trimmedCityName = cityName.trim();
+    console.log(
+      `  Trimmed city: "${trimmedCityName}" (length: ${trimmedCityName.length})`,
+    );
+
+    // Check all warehouses for potential matches
+    warehouses.forEach((w, i) => {
+      const trimmedWarehouseCity = w.city.trim();
+      const strictMatch = trimmedWarehouseCity === trimmedCityName;
+      console.log(
+        `  Warehouse ${i}: "${w.city}" (trimmed: "${trimmedWarehouseCity}") - Match: ${strictMatch}`,
+      );
+
+      // Highlight potential matches for debugging
+      if (
+        cityName.toLowerCase().includes("andij") ||
+        cityName.toLowerCase().includes("анд")
+      ) {
         if (
           w.city.toLowerCase().includes("andij") ||
           w.city.toLowerCase().includes("анд")
         ) {
-          console.log(`    ⭐ POTENTIAL ANDIJAN: ${w.name} in ${w.city}`);
+          console.log(
+            `    ⭐ POTENTIAL ANDIJAN MATCH: ${w.name} in "${w.city}"`,
+          );
         }
-      });
-    }
+      }
+    });
 
     // STRICT MATCHING ONLY: exact string comparison (with whitespace trimming)
     const trimmedCityName = cityName.trim();
