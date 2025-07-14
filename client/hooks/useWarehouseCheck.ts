@@ -83,7 +83,7 @@ export function useWarehouseCheck() {
       .trim();
   };
 
-  // Check if a city has a warehouse
+  // Check if a city has a warehouse - STRICT MATCHING ONLY
   const hasWarehouse = (cityName: string | null): boolean => {
     if (!cityName || warehouses.length === 0) {
       console.log(
@@ -92,127 +92,29 @@ export function useWarehouseCheck() {
       return false;
     }
 
-    console.log(`🔍 Checking warehouse for city: "${cityName}"`);
+    console.log(`🔍 STRICT warehouse check for city: "${cityName}"`);
 
-    // First, let's see all available warehouse cities for debugging
+    // Get all available warehouse cities for debugging
     const warehouseCities = warehouses.map((w) => w.city);
     console.log("📍 Available warehouse cities:", warehouseCities);
 
-    // Step 1: Try exact match first (case-insensitive)
+    // STRICT MATCHING ONLY: exact string comparison
     const exactMatch = warehouses.find(
-      (w) => w.city.toLowerCase() === cityName.toLowerCase(),
+      (warehouse) => warehouse.city === cityName,
     );
 
     if (exactMatch) {
       console.log(
-        `✅ EXACT MATCH FOUND: "${cityName}" === "${exactMatch.city}"`,
+        `✅ STRICT MATCH FOUND: "${cityName}" === "${exactMatch.city}"`,
       );
       console.log(`   Warehouse: ${exactMatch.name}`);
       return true;
     }
 
-    // Step 2: Try normalized matching for flexibility
-    const normalizedSearchCity = normalizeCityName(cityName);
-    console.log(`🔍 Normalized search: "${normalizedSearchCity}"`);
+    console.log(`❌ NO STRICT WAREHOUSE MATCH for "${cityName}"`);
+    console.log(`❌ Available warehouse cities:`, warehouseCities);
 
-    let found = false;
-    let matchedWarehouse = null;
-
-    for (const warehouse of warehouses) {
-      const normalizedWarehouseCity = normalizeCityName(warehouse.city);
-
-      // Try exact match first
-      if (normalizedWarehouseCity === normalizedSearchCity) {
-        found = true;
-        matchedWarehouse = warehouse;
-        console.log(
-          `✅ EXACT MATCH: "${normalizedSearchCity}" === "${normalizedWarehouseCity}"`,
-        );
-        break;
-      }
-
-      // Try if one contains the other
-      if (normalizedWarehouseCity.includes(normalizedSearchCity)) {
-        found = true;
-        matchedWarehouse = warehouse;
-        console.log(
-          `✅ CONTAINS MATCH: "${normalizedWarehouseCity}" contains "${normalizedSearchCity}"`,
-        );
-        break;
-      }
-
-      if (normalizedSearchCity.includes(normalizedWarehouseCity)) {
-        found = true;
-        matchedWarehouse = warehouse;
-        console.log(
-          `✅ CONTAINED MATCH: "${normalizedSearchCity}" contains "${normalizedWarehouseCity}"`,
-        );
-        break;
-      }
-
-      // Try core word matching for compound names like "Андижан" vs "Andijon shahri"
-      const searchWords = normalizedSearchCity
-        .split(" ")
-        .filter((w) => w.length > 2);
-      const warehouseWords = normalizedWarehouseCity
-        .split(" ")
-        .filter((w) => w.length > 2);
-
-      const wordMatch = searchWords.some((searchWord) =>
-        warehouseWords.some((warehouseWord) => {
-          if (searchWord === warehouseWord) return true;
-          if (searchWord.length >= 4 && warehouseWord.length >= 4) {
-            return (
-              searchWord.includes(warehouseWord) ||
-              warehouseWord.includes(searchWord)
-            );
-          }
-          return false;
-        }),
-      );
-
-      if (wordMatch) {
-        found = true;
-        matchedWarehouse = warehouse;
-        console.log(
-          `✅ WORD MATCH: Words from "${normalizedSearchCity}" match words in "${normalizedWarehouseCity}"`,
-        );
-        break;
-      }
-    }
-
-    if (found && matchedWarehouse) {
-      console.log(
-        `✅ WAREHOUSE FOUND for "${cityName}":`,
-        matchedWarehouse.name,
-        "in",
-        matchedWarehouse.city,
-      );
-    } else {
-      console.log(`❌ NO WAREHOUSE found for "${cityName}"`);
-      console.log(`❌ Searched for normalized: "${normalizedSearchCity}"`);
-      console.log(
-        `❌ Available normalized warehouse cities:`,
-        warehouses.map((w) => `"${normalizeCityName(w.city)}"`),
-      );
-
-      // Extra debugging for the specific case
-      if (
-        cityName.toLowerCase().includes("иштыхан") ||
-        cityName.toLowerCase().includes("ishtixon")
-      ) {
-        console.log(
-          `🔍 SPECIAL DEBUG: Checking for "${cityName}" specifically`,
-        );
-        console.log(`🔍 Available warehouse cities (exact):`, warehouseCities);
-        console.log(
-          `🔍 Normalized warehouse cities:`,
-          warehouses.map((w) => normalizeCityName(w.city)),
-        );
-      }
-    }
-
-    return found;
+    return false;
   };
 
   // Check if a city has a locker (postamat)
