@@ -63,6 +63,14 @@ export function useRegionBasedTariffCalculator() {
 
   // Create warning based on warehouse check - only show when tariff type is selected and requires validation
   const createWarehouseWarning = () => {
+    console.log("🚨 CREATE_WAREHOUSE_WARNING called");
+    console.log("  Form state:", {
+      originCity: form.originCity?.names,
+      destinationCity: form.destinationCity?.names,
+      tariffType: form.tariffType,
+      warehouseDataLoaded: !!warehouseData,
+    });
+
     // Only show warnings when all required fields are selected AND tariff type requires office/warehouse validation
     if (
       !form.originCity ||
@@ -70,6 +78,7 @@ export function useRegionBasedTariffCalculator() {
       !form.tariffType ||
       !warehouseData
     ) {
+      console.log("🚨 EARLY RETURN - missing data");
       return {
         show: false,
         type: "info" as const,
