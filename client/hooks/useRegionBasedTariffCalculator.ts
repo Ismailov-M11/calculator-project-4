@@ -68,8 +68,6 @@ export function useRegionBasedTariffCalculator() {
       !form.originCity ||
       !form.destinationCity ||
       !form.tariffType ||
-      !convertedOriginCity ||
-      !convertedDestinationCity ||
       !warehouseData
     ) {
       return {
@@ -91,18 +89,52 @@ export function useRegionBasedTariffCalculator() {
       };
     }
 
+    // Get city names for warehouse checking - try multiple approaches
+    const getOriginCityName = () => {
+      // Try API city first if available
+      if (convertedOriginCity?.name) {
+        return convertedOriginCity.name;
+      }
+      // Fallback to RegionCity names
+      return (
+        form.originCity.names[language] ||
+        form.originCity.names.ru ||
+        form.originCity.names.en
+      );
+    };
+
+    const getDestinationCityName = () => {
+      // Try API city first if available
+      if (convertedDestinationCity?.name) {
+        return convertedDestinationCity.name;
+      }
+      // Fallback to RegionCity names
+      return (
+        form.destinationCity.names[language] ||
+        form.destinationCity.names.ru ||
+        form.destinationCity.names.en
+      );
+    };
+
+    const originCityName = getOriginCityName();
+    const destinationCityName = getDestinationCityName();
+
     // Use the proper warehouse checking logic instead of simple filtering
     console.log("🔄 TARIFF CALCULATOR: Checking warehouses for:");
-    console.log("  Origin:", convertedOriginCity.name);
-    console.log("  Destination:", convertedDestinationCity.name);
+    console.log("  Origin RegionCity:", form.originCity.names);
+    console.log("  Origin API City:", convertedOriginCity?.name || "NOT FOUND");
+    console.log("  Origin City Name for check:", originCityName);
+    console.log("  Destination RegionCity:", form.destinationCity.names);
+    console.log(
+      "  Destination API City:",
+      convertedDestinationCity?.name || "NOT FOUND",
+    );
+    console.log("  Destination City Name for check:", destinationCityName);
     console.log("  Tariff Type:", form.tariffType);
 
-    const hasOriginWarehouse = warehouseData.hasWarehouse(
-      convertedOriginCity.name,
-    );
-    const hasDestinationWarehouse = warehouseData.hasWarehouse(
-      convertedDestinationCity.name,
-    );
+    const hasOriginWarehouse = warehouseData.hasWarehouse(originCityName);
+    const hasDestinationWarehouse =
+      warehouseData.hasWarehouse(destinationCityName);
     const hasOriginLocker = warehouseData.hasLocker(convertedOriginCity.name);
     const hasDestinationLocker = warehouseData.hasLocker(
       convertedDestinationCity.name,
