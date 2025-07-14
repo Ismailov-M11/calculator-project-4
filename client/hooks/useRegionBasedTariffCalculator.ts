@@ -314,16 +314,6 @@ export function useRegionBasedTariffCalculator() {
       return false; // Let other validation handle this
     }
 
-    // Check if tariff type requires office/warehouse services
-    const needsOriginOffice = form.tariffType.startsWith("OFFICE");
-    const needsDestinationOffice =
-      form.tariffType.endsWith("OFFICE") ||
-      form.tariffType.endsWith("POSTAMAT");
-
-    if (!needsOriginOffice && !needsDestinationOffice) {
-      return false; // No warehouse requirements for this tariff
-    }
-
     // Use the proper warehouse checking logic
     const hasOriginWarehouse = warehouseData.hasWarehouse(
       convertedOriginCity.name,
@@ -336,19 +326,29 @@ export function useRegionBasedTariffCalculator() {
       convertedDestinationCity.name,
     );
 
-    const hasOriginServices = hasOriginWarehouse || hasOriginLocker;
-    const hasDestinationServices =
-      hasDestinationWarehouse || hasDestinationLocker;
+    // Check specific requirements based on tariff type
+    switch (form.tariffType) {
+      case "OFFICE_OFFICE":
+        return !hasOriginWarehouse || !hasDestinationWarehouse;
 
-    // Block if required services are not available
-    if (needsOriginOffice && !hasOriginServices) {
-      return true;
-    }
-    if (needsDestinationOffice && !hasDestinationServices) {
-      return true;
-    }
+      case "OFFICE_DOOR":
+        return !hasOriginWarehouse;
 
-    return false;
+      case "DOOR_OFFICE":
+        return !hasDestinationWarehouse;
+
+      case "OFFICE_POSTAMAT":
+        return !hasOriginWarehouse || !hasDestinationLocker;
+
+      case "DOOR_POSTAMAT":
+        return !hasDestinationLocker;
+
+      case "DOOR_DOOR":
+        return false; // Door to door doesn't require warehouses
+
+      default:
+        return false;
+    }
   };
 
   const calculateTariff = async () => {
