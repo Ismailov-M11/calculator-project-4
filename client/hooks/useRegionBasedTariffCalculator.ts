@@ -352,35 +352,15 @@ export function useRegionBasedTariffCalculator() {
       return false; // Let other validation handle this
     }
 
-    // Get city names for warehouse checking - try multiple approaches
-    const getOriginCityName = () => {
-      // Try API city first if available
-      if (convertedOriginCity?.name) {
-        return convertedOriginCity.name;
-      }
-      // Fallback to RegionCity names
-      return (
-        form.originCity.names[language] ||
-        form.originCity.names.ru ||
-        form.originCity.names.en
-      );
-    };
+    // Only proceed if we have API cities - strict requirement
+    if (!convertedOriginCity || !convertedDestinationCity) {
+      console.log("🚨 CALCULATION DISABLED - API cities not found");
+      return true; // Disable calculation if we don't have proper API city data
+    }
 
-    const getDestinationCityName = () => {
-      // Try API city first if available
-      if (convertedDestinationCity?.name) {
-        return convertedDestinationCity.name;
-      }
-      // Fallback to RegionCity names
-      return (
-        form.destinationCity.names[language] ||
-        form.destinationCity.names.ru ||
-        form.destinationCity.names.en
-      );
-    };
-
-    const originCityName = getOriginCityName();
-    const destinationCityName = getDestinationCityName();
+    // Use EXACT API city names for warehouse checking
+    const originCityName = convertedOriginCity.name;
+    const destinationCityName = convertedDestinationCity.name;
 
     // Use the proper warehouse checking logic
     const hasOriginWarehouse = warehouseData.hasWarehouse(originCityName);
