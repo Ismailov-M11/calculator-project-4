@@ -337,24 +337,47 @@ export function useRegionBasedTariffCalculator() {
       !form.originCity ||
       !form.destinationCity ||
       !form.tariffType ||
-      !convertedOriginCity ||
-      !convertedDestinationCity ||
       !warehouseData
     ) {
       return false; // Let other validation handle this
     }
 
+    // Get city names for warehouse checking - try multiple approaches
+    const getOriginCityName = () => {
+      // Try API city first if available
+      if (convertedOriginCity?.name) {
+        return convertedOriginCity.name;
+      }
+      // Fallback to RegionCity names
+      return (
+        form.originCity.names[language] ||
+        form.originCity.names.ru ||
+        form.originCity.names.en
+      );
+    };
+
+    const getDestinationCityName = () => {
+      // Try API city first if available
+      if (convertedDestinationCity?.name) {
+        return convertedDestinationCity.name;
+      }
+      // Fallback to RegionCity names
+      return (
+        form.destinationCity.names[language] ||
+        form.destinationCity.names.ru ||
+        form.destinationCity.names.en
+      );
+    };
+
+    const originCityName = getOriginCityName();
+    const destinationCityName = getDestinationCityName();
+
     // Use the proper warehouse checking logic
-    const hasOriginWarehouse = warehouseData.hasWarehouse(
-      convertedOriginCity.name,
-    );
-    const hasDestinationWarehouse = warehouseData.hasWarehouse(
-      convertedDestinationCity.name,
-    );
-    const hasOriginLocker = warehouseData.hasLocker(convertedOriginCity.name);
-    const hasDestinationLocker = warehouseData.hasLocker(
-      convertedDestinationCity.name,
-    );
+    const hasOriginWarehouse = warehouseData.hasWarehouse(originCityName);
+    const hasDestinationWarehouse =
+      warehouseData.hasWarehouse(destinationCityName);
+    const hasOriginLocker = warehouseData.hasLocker(originCityName);
+    const hasDestinationLocker = warehouseData.hasLocker(destinationCityName);
 
     // Check specific requirements based on tariff type
     switch (form.tariffType) {
