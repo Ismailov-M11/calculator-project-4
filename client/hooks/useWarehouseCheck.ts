@@ -115,13 +115,16 @@ export function useWarehouseCheck() {
 
     if (exactMatch) {
       console.log(
-        `✅ STRICT MATCH FOUND: "${cityName}" === "${exactMatch.city}"`,
+        `✅ STRICT MATCH FOUND: "${trimmedCityName}" === "${exactMatch.city.trim()}"`,
       );
+      console.log(`   Original city name: "${cityName}"`);
       console.log(`   Warehouse: ${exactMatch.name}`);
       return true;
     }
 
-    console.log(`❌ NO STRICT WAREHOUSE MATCH for "${cityName}"`);
+    console.log(
+      `❌ NO STRICT WAREHOUSE MATCH for "${trimmedCityName}" (original: "${cityName}")`,
+    );
     console.log(`❌ Available warehouse cities:`, warehouseCities);
 
     return false;
