@@ -78,10 +78,34 @@ export function useWarehouseCheck() {
     }
 
     console.log(`🔍 STRICT warehouse check for city: "${cityName}"`);
+    console.log(
+      `🔍 City name length: ${cityName.length}, char codes: ${Array.from(cityName).map((c) => c.charCodeAt(0))}`,
+    );
 
     // Get all available warehouse cities for debugging
     const warehouseCities = warehouses.map((w) => w.city);
     console.log("📍 Available warehouse cities:", warehouseCities);
+
+    // Special debugging for Andijan variants
+    if (
+      cityName.toLowerCase().includes("andij") ||
+      cityName.toLowerCase().includes("анд")
+    ) {
+      console.log("🏗️ ANDIJAN DEBUG:");
+      console.log(`  Search city: "${cityName}" (length: ${cityName.length})`);
+      warehouses.forEach((w, i) => {
+        const match = w.city === cityName;
+        console.log(
+          `  Warehouse ${i}: "${w.city}" (length: ${w.city.length}) - Match: ${match}`,
+        );
+        if (
+          w.city.toLowerCase().includes("andij") ||
+          w.city.toLowerCase().includes("анд")
+        ) {
+          console.log(`    ⭐ POTENTIAL ANDIJAN: ${w.name} in ${w.city}`);
+        }
+      });
+    }
 
     // STRICT MATCHING ONLY: exact string comparison
     const exactMatch = warehouses.find(
