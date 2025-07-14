@@ -107,9 +107,10 @@ export function useWarehouseCheck() {
       });
     }
 
-    // STRICT MATCHING ONLY: exact string comparison
+    // STRICT MATCHING ONLY: exact string comparison (with whitespace trimming)
+    const trimmedCityName = cityName.trim();
     const exactMatch = warehouses.find(
-      (warehouse) => warehouse.city === cityName,
+      (warehouse) => warehouse.city.trim() === trimmedCityName,
     );
 
     if (exactMatch) {
