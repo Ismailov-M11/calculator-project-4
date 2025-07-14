@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { City, Warehouse, TariffType } from "@shared/api";
 import { useI18n } from "./useI18n";
 
-export function useWarehouseCheck() {
+// 💬 Новый хук
+export function useWarehouseCheck(cities: City[]) {
   const { t, formatMessage } = useI18n();
   const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
   const [lockers, setLockers] = useState<Warehouse[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // 🚚 Загрузка складов и постаматов
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -17,17 +19,21 @@ export function useWarehouseCheck() {
         const lockersResponse = await fetch("/api/lockers");
 
         if (warehousesResponse.ok) {
-          const warehousesData = await warehousesResponse.json();
-          setWarehouses(warehousesData.data?.list || []);
+          const data = await warehousesResponse.json();
+          setWarehouses(data.data?.list || []);
+        } else {
+          console.error("Ошибка загрузки складов");
         }
 
         if (lockersResponse.ok) {
-          const lockersData = await lockersResponse.json();
-          setLockers(lockersData.data?.list || []);
+          const data = await lockersResponse.json();
+          setLockers(data.data?.list || []);
+        } else {
+          console.error("Ошибка загрузки постаматов");
         }
-      } catch (error) {
-        console.error("Error fetching warehouses or lockers", error);
-        setError("Failed to load data");
+      } catch (e) {
+        console.error("Ошибка при запросе складов и постаматов:", e);
+        setError("Ошибка при загрузке данных");
       } finally {
         setLoading(false);
       }
@@ -35,6 +41,13 @@ export function useWarehouseCheck() {
 
     fetchData();
   }, []);
+
+  // 💡 Получение name города по ID
+  const getCityNameById = (id: number | null): string | null => {
+    if (!id) return null;
+    const found = cities.find((c) => c.id === id);
+    return found?.name || null;
+  };
 
   const hasWarehouse = (cityName: string | null): boolean => {
     if (!cityName) return false;
@@ -53,8 +66,8 @@ export function useWarehouseCheck() {
   ): { show: boolean; message: string } => {
     if (!tariffType || loading) return { show: false, message: "" };
 
-    const originCityName = originCity?.name || null;
-    const destinationCityName = destinationCity?.name || null;
+    const originCityName = getCityNameById(originCity?.id || null);
+    const destinationCityName = getCityNameById(destinationCity?.id || null);
 
     const originHasWarehouse = hasWarehouse(originCityName);
     const destinationHasWarehouse = hasWarehouse(destinationCityName);
@@ -108,8 +121,8 @@ export function useWarehouseCheck() {
   ): boolean => {
     if (!originCity || !destinationCity || !tariffType || loading) return true;
 
-    const originCityName = originCity?.name || null;
-    const destinationCityName = destinationCity?.name || null;
+    const originCityName = getCityNameById(originCity.id);
+    const destinationCityName = getCityNameById(destinationCity.id);
 
     const originHasWarehouse = hasWarehouse(originCityName);
     const destinationHasWarehouse = hasWarehouse(destinationCityName);
