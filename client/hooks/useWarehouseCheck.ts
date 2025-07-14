@@ -226,6 +226,20 @@ export function useWarehouseCheck() {
 
     console.log(`🔍 Checking locker for city: "${cityName}"`);
 
+    // Step 1: Try exact match first (case-insensitive)
+    const exactMatch = lockers.find(
+      (l) => l.city.toLowerCase() === cityName.toLowerCase(),
+    );
+
+    if (exactMatch) {
+      console.log(
+        `✅ EXACT LOCKER MATCH FOUND: "${cityName}" === "${exactMatch.city}"`,
+      );
+      console.log(`   Locker: ${exactMatch.name}`);
+      return true;
+    }
+
+    // Step 2: Try normalized matching for flexibility
     const normalizedSearchCity = normalizeCityName(cityName);
     let found = false;
 
