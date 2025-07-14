@@ -145,18 +145,24 @@ export function useWarehouseCheck() {
     const lockerCities = lockers.map((l) => l.city);
     console.log("📍 Available locker cities:", lockerCities);
 
-    // STRICT MATCHING ONLY: exact string comparison
-    const exactMatch = lockers.find((locker) => locker.city === cityName);
+    // STRICT MATCHING ONLY: exact string comparison (with whitespace trimming)
+    const trimmedCityName = cityName.trim();
+    const exactMatch = lockers.find(
+      (locker) => locker.city.trim() === trimmedCityName,
+    );
 
     if (exactMatch) {
       console.log(
-        `✅ STRICT LOCKER MATCH FOUND: "${cityName}" === "${exactMatch.city}"`,
+        `✅ STRICT LOCKER MATCH FOUND: "${trimmedCityName}" === "${exactMatch.city.trim()}"`,
       );
+      console.log(`   Original city name: "${cityName}"`);
       console.log(`   Locker: ${exactMatch.name}`);
       return true;
     }
 
-    console.log(`❌ NO STRICT LOCKER MATCH for "${cityName}"`);
+    console.log(
+      `❌ NO STRICT LOCKER MATCH for "${trimmedCityName}" (original: "${cityName}")`,
+    );
     console.log(`❌ Available locker cities:`, lockerCities);
 
     return false;
