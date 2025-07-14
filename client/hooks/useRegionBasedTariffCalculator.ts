@@ -80,7 +80,9 @@ export function useRegionBasedTariffCalculator() {
     }
 
     // Only check for office-related tariff types that require warehouses
-    const requiresWarehouseCheck = form.tariffType.includes("OFFICE");
+    const requiresWarehouseCheck =
+      form.tariffType.includes("OFFICE") ||
+      form.tariffType.includes("POSTAMAT");
     if (!requiresWarehouseCheck) {
       return {
         show: false,
@@ -93,6 +95,7 @@ export function useRegionBasedTariffCalculator() {
     console.log("🔄 TARIFF CALCULATOR: Checking warehouses for:");
     console.log("  Origin:", convertedOriginCity.name);
     console.log("  Destination:", convertedDestinationCity.name);
+    console.log("  Tariff Type:", form.tariffType);
 
     const hasOriginWarehouse = warehouseData.hasWarehouse(
       convertedOriginCity.name,
@@ -114,6 +117,8 @@ export function useRegionBasedTariffCalculator() {
     console.log("  Origin locker:", hasOriginLocker);
     console.log("  Destination warehouse:", hasDestinationWarehouse);
     console.log("  Destination locker:", hasDestinationLocker);
+    console.log("  Has origin services:", hasOriginServices);
+    console.log("  Has destination services:", hasDestinationServices);
 
     // Use city names from selected RegionCity according to current language
     const getDisplayName = (regionCity: RegionCity) => {
@@ -123,37 +128,127 @@ export function useRegionBasedTariffCalculator() {
     // Check based on tariff type requirements
     const needsOriginOffice = form.tariffType.startsWith("OFFICE");
     const needsDestinationOffice = form.tariffType.endsWith("OFFICE");
+    const needsDestinationPostamat = form.tariffType.endsWith("POSTAMAT");
 
-    if (
-      needsOriginOffice &&
-      needsDestinationOffice &&
-      !hasOriginServices &&
-      !hasDestinationServices
-    ) {
-      return {
-        show: true,
-        type: "warning" as const,
-        message: formatMessage(t.noWarehouses, {
-          origin: getDisplayName(form.originCity),
-          destination: getDisplayName(form.destinationCity),
-        }),
-      };
-    } else if (needsOriginOffice && !hasOriginServices) {
-      return {
-        show: true,
-        type: "warning" as const,
-        message: formatMessage(t.noOriginWarehouse, {
-          city: getDisplayName(form.originCity),
-        }),
-      };
-    } else if (needsDestinationOffice && !hasDestinationServices) {
-      return {
-        show: true,
-        type: "warning" as const,
-        message: formatMessage(t.noDestinationWarehouse, {
-          city: getDisplayName(form.destinationCity),
-        }),
-      };
+    console.log("🔄 TARIFF CALCULATOR: Tariff requirements:");
+    console.log("  Needs origin office:", needsOriginOffice);
+    console.log("  Needs destination office:", needsDestinationOffice);
+    console.log("  Needs destination postamat:", needsDestinationPostamat);
+
+    // Check specific requirements based on tariff type
+    if (form.tariffType === "OFFICE_OFFICE") {
+      if (!hasOriginWarehouse && !hasDestinationWarehouse) {
+        return {
+          show: true,
+          type: "warning" as const,
+          message: formatMessage(
+            t.noWarehouses ||
+              "В городах {origin} и {destination} нет офисов FARGO",
+            {
+              origin: getDisplayName(form.originCity),
+              destination: getDisplayName(form.destinationCity),
+            },
+          ),
+        };
+      } else if (!hasOriginWarehouse) {
+        return {
+          show: true,
+          type: "warning" as const,
+          message: formatMessage(
+            t.noOriginWarehouse || "В городе {city} нет офиса FARGO",
+            {
+              city: getDisplayName(form.originCity),
+            },
+          ),
+        };
+      } else if (!hasDestinationWarehouse) {
+        return {
+          show: true,
+          type: "warning" as const,
+          message: formatMessage(
+            t.noDestinationWarehouse || "В городе {city} нет офиса FARGO",
+            {
+              city: getDisplayName(form.destinationCity),
+            },
+          ),
+        };
+      }
+    } else if (form.tariffType === "OFFICE_DOOR") {
+      if (!hasOriginWarehouse) {
+        return {
+          show: true,
+          type: "warning" as const,
+          message: formatMessage(
+            t.noOriginWarehouse || "В городе {city} нет офиса FARGO",
+            {
+              city: getDisplayName(form.originCity),
+            },
+          ),
+        };
+      }
+    } else if (form.tariffType === "DOOR_OFFICE") {
+      if (!hasDestinationWarehouse) {
+        return {
+          show: true,
+          type: "warning" as const,
+          message: formatMessage(
+            t.noDestinationWarehouse || "В городе {city} нет офиса FARGO",
+            {
+              city: getDisplayName(form.destinationCity),
+            },
+          ),
+        };
+      }
+    } else if (form.tariffType === "OFFICE_POSTAMAT") {
+      if (!hasOriginWarehouse && !hasDestinationLocker) {
+        return {
+          show: true,
+          type: "warning" as const,
+          message: formatMessage(
+            t.noOriginWarehouseAndDestinationLocker ||
+              "В городе {originCity} нет офиса FARGO, а в городе {destinationCity} нет постамата",
+            {
+              originCity: getDisplayName(form.originCity),
+              destinationCity: getDisplayName(form.destinationCity),
+            },
+          ),
+        };
+      } else if (!hasOriginWarehouse) {
+        return {
+          show: true,
+          type: "warning" as const,
+          message: formatMessage(
+            t.noOriginWarehouse || "В городе {city} нет офиса FARGO",
+            {
+              city: getDisplayName(form.originCity),
+            },
+          ),
+        };
+      } else if (!hasDestinationLocker) {
+        return {
+          show: true,
+          type: "warning" as const,
+          message: formatMessage(
+            t.noDestinationLocker || "В городе {city} нет постамата",
+            {
+              city: getDisplayName(form.destinationCity),
+            },
+          ),
+        };
+      }
+    } else if (form.tariffType === "DOOR_POSTAMAT") {
+      if (!hasDestinationLocker) {
+        return {
+          show: true,
+          type: "warning" as const,
+          message: formatMessage(
+            t.noDestinationLocker || "В городе {city} нет постамата",
+            {
+              city: getDisplayName(form.destinationCity),
+            },
+          ),
+        };
+      }
     }
 
     return {
