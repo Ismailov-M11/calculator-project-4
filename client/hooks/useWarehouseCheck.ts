@@ -117,7 +117,7 @@ export function useWarehouseCheck() {
     return false;
   };
 
-  // Check if a city has a locker (postamat)
+  // Check if a city has a locker (postamat) - STRICT MATCHING ONLY
   const hasLocker = (cityName: string | null): boolean => {
     if (!cityName || lockers.length === 0) {
       console.log(
@@ -126,49 +126,27 @@ export function useWarehouseCheck() {
       return false;
     }
 
-    console.log(`🔍 Checking locker for city: "${cityName}"`);
+    console.log(`🔍 STRICT locker check for city: "${cityName}"`);
 
-    // Step 1: Try exact match first (case-insensitive)
-    const exactMatch = lockers.find(
-      (l) => l.city.toLowerCase() === cityName.toLowerCase(),
-    );
+    // Get all available locker cities for debugging
+    const lockerCities = lockers.map((l) => l.city);
+    console.log("📍 Available locker cities:", lockerCities);
+
+    // STRICT MATCHING ONLY: exact string comparison
+    const exactMatch = lockers.find((locker) => locker.city === cityName);
 
     if (exactMatch) {
       console.log(
-        `✅ EXACT LOCKER MATCH FOUND: "${cityName}" === "${exactMatch.city}"`,
+        `✅ STRICT LOCKER MATCH FOUND: "${cityName}" === "${exactMatch.city}"`,
       );
       console.log(`   Locker: ${exactMatch.name}`);
       return true;
     }
 
-    // Step 2: Try normalized matching for flexibility
-    const normalizedSearchCity = normalizeCityName(cityName);
-    let found = false;
+    console.log(`❌ NO STRICT LOCKER MATCH for "${cityName}"`);
+    console.log(`❌ Available locker cities:`, lockerCities);
 
-    for (const locker of lockers) {
-      const normalizedLockerCity = normalizeCityName(locker.city);
-
-      if (
-        normalizedLockerCity === normalizedSearchCity ||
-        normalizedLockerCity.includes(normalizedSearchCity) ||
-        normalizedSearchCity.includes(normalizedLockerCity)
-      ) {
-        found = true;
-        console.log(
-          `✅ LOCKER FOUND for "${cityName}":`,
-          locker.name,
-          "in",
-          locker.city,
-        );
-        break;
-      }
-    }
-
-    if (!found) {
-      console.log(`❌ NO LOCKER found for "${cityName}"`);
-    }
-
-    return found;
+    return false;
   };
 
   // Check if warehouse warning should be shown for selected tariff type
