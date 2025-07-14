@@ -75,7 +75,11 @@ export function useWarehouseCheck() {
       .toLowerCase()
       .replace(/[^a-zA-Zа-яёўқғҳ\s]/g, "") // Remove special characters but keep letters and spaces
       .replace(/\s+/g, " ") // Replace multiple spaces with single space
-      .replace(/(город|city|shahri|tumani|viloyati|oblast|region)/gi, "") // Remove common city suffixes
+      .replace(
+        /(город|city|shahri|tumani|viloyati|oblast|region|район|district)/gi,
+        "",
+      ) // Remove common city suffixes including район/district
+      .replace(/(ский|нский|ская|нская|ское|нское)/gi, "") // Remove Russian adjective endings
       .trim();
   };
 
