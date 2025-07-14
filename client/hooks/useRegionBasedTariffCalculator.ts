@@ -135,10 +135,8 @@ export function useRegionBasedTariffCalculator() {
     const hasOriginWarehouse = warehouseData.hasWarehouse(originCityName);
     const hasDestinationWarehouse =
       warehouseData.hasWarehouse(destinationCityName);
-    const hasOriginLocker = warehouseData.hasLocker(convertedOriginCity.name);
-    const hasDestinationLocker = warehouseData.hasLocker(
-      convertedDestinationCity.name,
-    );
+    const hasOriginLocker = warehouseData.hasLocker(originCityName);
+    const hasDestinationLocker = warehouseData.hasLocker(destinationCityName);
 
     const hasOriginServices = hasOriginWarehouse || hasOriginLocker;
     const hasDestinationServices =
