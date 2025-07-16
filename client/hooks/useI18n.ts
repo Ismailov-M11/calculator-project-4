@@ -119,11 +119,11 @@ const translations: Record<Language, Translations> = {
     selectCitiesFirst: "Сначала выберите города отправления и назначения",
     correctWeight: "Пожалуйста, введите корректный вес",
 
-    officeOffice: "Офис → Офис",
-    officeDoor: "Офис → Дверь",
-    doorOffice: "Дверь → Офис",
+    officeOffice: "Пункт → Пункт",
+    officeDoor: "Пункт → Дверь",
+    doorOffice: "Дверь → Пункт",
     doorDoor: "Дверь → Дверь",
-    officePostamat: "Офис → Постамат",
+    officePostamat: "Пункт → Постамат",
     doorPostamat: "Дверь → Постамат",
 
     warehouseWarning: "Предупреждение о пункте выдачи",
@@ -133,7 +133,7 @@ const translations: Record<Language, Translations> = {
     noWarehouses: "В городах отправки и доставки нет пунктов выдачи Fargo",
     noOriginLocker: 'В городе отправки "{city}" нет постамата Fargo',
     noDestinationLocker: 'В городе доставки "{city}" нет постамата Fargo',
-    noLockers: "В город��х отправки и доставки нет постаматов Fargo",
+    noLockers: "В городах отправки и доставки нет постаматов Fargo",
     noOriginWarehouseAndDestinationLocker:
       'В городе отправки "{originCity}" нет пункта выдачи Fargo, а в городе доставки "{destinationCity}" нет постамата Fargo',
 
@@ -305,11 +305,11 @@ const translations: Record<Language, Translations> = {
     selectCitiesFirst: "Avval jo'natish va yetkazish shaharlarini tanlang",
     correctWeight: "Iltimos, to'g'ri og'irlikni kiriting",
 
-    officeOffice: "Ofis → Ofis",
-    officeDoor: "Ofis → Eshik",
-    doorOffice: "Eshik → Ofis",
+    officeOffice: "Punkt → Puknt",
+    officeDoor: "Punkt → Eshik",
+    doorOffice: "Eshik → Punkt",
     doorDoor: "Eshik → Eshik",
-    officePostamat: "Ofis → Postamat",
+    officePostamat: "Punkt → Postamat",
     doorPostamat: "Eshik → Postamat",
 
     warehouseWarning: "Yetkazib berish punkti haqida ogohlantirish",
