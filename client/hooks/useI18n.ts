@@ -119,12 +119,12 @@ const translations: Record<Language, Translations> = {
     selectCitiesFirst: "Сначала выберите города отправления и назначения",
     correctWeight: "Пожалуйста, введите корректный вес",
 
-    officeOffice: "Пункт → Пункт",
-    officeDoor: "Пункт → Дверь",
-    doorOffice: "Дверь → Пункт",
-    doorDoor: "Дверь → Дверь",
-    officePostamat: "Пункт → Постамат",
-    doorPostamat: "Дверь → Постамат",
+    officeOffice: "Пункт  →  Пункт",
+    officeDoor: "Пункт  →  Дверь",
+    doorOffice: "Дверь  →  Пункт",
+    doorDoor: "Дверь  →  Дверь",
+    officePostamat: "Пункт  →  Постамат",
+    doorPostamat: "Дверь  →  Постамат",
 
     warehouseWarning: "Предупреждение о пункте выдачи",
     noOriginWarehouse: 'В городе отправки "{city}" нет пункта выдачи Fargo',
