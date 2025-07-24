@@ -216,6 +216,14 @@ const REGIONS_DATA: Region[] = [
     },
   },
   {
+    id: "toshkent-shahri",
+    names: {
+      uz: "Toshkent shahri",
+      ru: "город Ташкент",
+      en: "Tashkent City",
+    },
+  },
+  {
     id: "xorazm-viloyati",
     names: {
       uz: "Xorazm Viloyati",
@@ -244,7 +252,7 @@ const CITIES_DATA: RegionCity[] = [
   {
     shipox_id: 263947002,
     region_id: "andijon-viloyati",
-    names: { uz: "Asaka tumani", ru: "Асакинский район", en: "Asaka district" },
+    names: { uz: "Asaka tumani", ru: "Асакинский райо��", en: "Asaka district" },
   },
   {
     shipox_id: 263947005,
@@ -737,7 +745,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "namangan-viloyati",
     names: {
       uz: "Chortoq tumani",
-      ru: "Чартакский район",
+      ru: "Чартакский ра��он",
       en: "Chartak district",
     },
   },
