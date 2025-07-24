@@ -15,7 +15,10 @@ export function useLanguageRouting() {
 
   useEffect(() => {
     // If URL has a valid language prefix, update the language state
-    if (currentLangFromUrl && SUPPORTED_LANGUAGES.includes(currentLangFromUrl)) {
+    if (
+      currentLangFromUrl &&
+      SUPPORTED_LANGUAGES.includes(currentLangFromUrl)
+    ) {
       if (language !== currentLangFromUrl) {
         setLanguage(currentLangFromUrl);
       }
@@ -27,12 +30,12 @@ export function useLanguageRouting() {
     let newPath: string;
 
     // Remove current language prefix if exists
-    const pathWithoutLang = currentLangFromUrl 
-      ? currentPath.replace(`/${currentLangFromUrl}`, '') || '/'
+    const pathWithoutLang = currentLangFromUrl
+      ? currentPath.replace(`/${currentLangFromUrl}`, "") || "/"
       : currentPath;
 
     // Add new language prefix
-    newPath = `/${newLanguage}${pathWithoutLang === '/' ? '' : pathWithoutLang}`;
+    newPath = `/${newLanguage}${pathWithoutLang === "/" ? "" : pathWithoutLang}`;
 
     // Update language state and navigate
     setLanguage(newLanguage);
@@ -41,7 +44,7 @@ export function useLanguageRouting() {
 
   const getLocalizedPath = (path: string) => {
     if (currentLangFromUrl) {
-      return `/${currentLangFromUrl}${path === '/' ? '' : path}`;
+      return `/${currentLangFromUrl}${path === "/" ? "" : path}`;
     }
     return path;
   };

@@ -27,8 +27,9 @@ export function Navigation() {
       {navItems.map((item) => {
         const Icon = item.icon;
         const localizedPath = getLocalizedPath(item.path);
-        const isActive = location.pathname === localizedPath ||
-                         (item.path === "/" && location.pathname.match(/^\/[a-z]{2}$/));
+        const isActive =
+          location.pathname === localizedPath ||
+          (item.path === "/" && location.pathname.match(/^\/[a-z]{2}$/));
 
         return (
           <Button
