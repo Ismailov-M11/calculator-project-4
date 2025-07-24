@@ -26,7 +26,9 @@ export function Navigation() {
     <nav className="flex gap-2">
       {navItems.map((item) => {
         const Icon = item.icon;
-        const isActive = location.pathname === item.path;
+        const localizedPath = getLocalizedPath(item.path);
+        const isActive = location.pathname === localizedPath ||
+                         (item.path === "/" && location.pathname.match(/^\/[a-z]{2}$/));
 
         return (
           <Button
@@ -36,7 +38,7 @@ export function Navigation() {
             size="sm"
             className={`gap-2 ${isActive ? "bg-black hover:bg-gray-800 text-white" : ""}`}
           >
-            <Link to={item.path}>
+            <Link to={localizedPath}>
               <Icon className="h-4 w-4" />
               <span className="hidden sm:inline">{item.label}</span>
             </Link>
