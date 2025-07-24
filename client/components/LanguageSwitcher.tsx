@@ -16,7 +16,8 @@ const languages: Array<{ code: Language; name: string; flag: string }> = [
 ];
 
 export function LanguageSwitcher() {
-  const { language, setLanguage } = useI18n();
+  const { language } = useI18n();
+  const { navigateToLanguage } = useLanguageRouting();
 
   const currentLanguage = languages.find((lang) => lang.code === language);
 
