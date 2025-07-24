@@ -243,6 +243,8 @@ export function RegionCityCombobox({
         className="w-[--radix-popover-trigger-width] max-w-sm p-0"
         side="bottom"
         align="start"
+        avoidCollisions={false}
+        collisionPadding={0}
       >
         <Command>
           <CommandInput
