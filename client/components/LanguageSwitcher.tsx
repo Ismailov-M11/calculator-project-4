@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useI18n, Language } from "@/hooks/useI18n";
+import { useLanguageRouting } from "@/hooks/useLanguageRouting";
 
 const languages: Array<{ code: Language; name: string; flag: string }> = [
   { code: "ru", name: "Русский", flag: "🇷🇺" },
