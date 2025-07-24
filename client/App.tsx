@@ -35,8 +35,14 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
+            {/* Default routes without language prefix */}
             <Route path="/" element={<Index />} />
             <Route path="/warehouses" element={<WarehousesFull />} />
+
+            {/* Language-prefixed routes */}
+            <Route path="/:lang" element={<Index />} />
+            <Route path="/:lang/warehouses" element={<WarehousesFull />} />
+
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
