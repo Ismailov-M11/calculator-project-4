@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Calculator, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/hooks/useI18n";
+import { useLanguageRouting } from "@/hooks/useLanguageRouting";
 
 export function Navigation() {
   const { t } = useI18n();
