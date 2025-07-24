@@ -305,7 +305,7 @@ const translations: Record<Language, Translations> = {
     selectCitiesFirst: "Avval jo'natish va yetkazish shaharlarini tanlang",
     correctWeight: "Iltimos, to'g'ri og'irlikni kiriting",
 
-    officeOffice: "Punkt → Puknt",
+    officeOffice: "Punkt → Punkt",
     officeDoor: "Punkt → Eshik",
     doorOffice: "Eshik → Punkt",
     doorDoor: "Eshik → Eshik",
