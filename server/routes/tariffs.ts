@@ -578,7 +578,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "fargona-viloyati",
     names: {
       uz: "Quvasoy shahri",
-      ru: "Кува��айский район",
+      ru: "Куваcайский район",
       en: "Kuvasay district",
     },
   },
@@ -752,7 +752,10 @@ const CITIES_DATA: RegionCity[] = [
   {
     shipox_id: 263947333,
     region_id: "namangan-viloyati",
-    names: { uz: "Chust tumani", ru: "Чуст��кий район", en: "Chust district" },
+    names: { 
+      uz: "Chust tumani", 
+      ru: "Чустcкий район", 
+      en: "Chust district" },
   },
   {
     shipox_id: 263947336,
@@ -853,7 +856,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "navoiy-viloyati",
     names: {
       uz: "Navbahor tumani",
-      ru: "Навбахорс��ий район",
+      ru: "Навбахорский район",
       en: "Navbahor district",
     },
   },
@@ -1168,7 +1171,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "qoraqalpogiston",
     names: {
       uz: "Taxtakoʻpir tumani",
-      ru: "Тахт��купырский район",
+      ru: "Тахтакупырский район",
       en: "Takhtakupyr district",
     },
   },
@@ -1224,7 +1227,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "samarqand-viloyati",
     names: {
       uz: "Kattaqoʻrgʻon shahri",
-      ru: "город Ка��такурган",
+      ru: "город Каттакурган",
       en: "Kattakurgan city",
     },
   },
