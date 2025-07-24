@@ -7,6 +7,7 @@ import { useLanguageRouting } from "@/hooks/useLanguageRouting";
 export function Navigation() {
   const { t } = useI18n();
   const location = useLocation();
+  const { getLocalizedPath } = useLanguageRouting();
 
   const navItems = [
     {
