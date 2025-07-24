@@ -252,7 +252,7 @@ const CITIES_DATA: RegionCity[] = [
   {
     shipox_id: 263947002,
     region_id: "andijon-viloyati",
-    names: { uz: "Asaka tumani", ru: "Асакинский райо��", en: "Asaka district" },
+    names: { uz: "Asaka tumani", ru: "Асакинский район", en: "Asaka district" },
   },
   {
     shipox_id: 263947005,
@@ -578,7 +578,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "fargona-viloyati",
     names: {
       uz: "Quvasoy shahri",
-      ru: "Кувасайский район",
+      ru: "Кува��айский район",
       en: "Kuvasay district",
     },
   },
@@ -745,14 +745,14 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "namangan-viloyati",
     names: {
       uz: "Chortoq tumani",
-      ru: "Чартакский ра��он",
+      ru: "Чартакский район",
       en: "Chartak district",
     },
   },
   {
     shipox_id: 263947333,
     region_id: "namangan-viloyati",
-    names: { uz: "Chust tumani", ru: "Чустский район", en: "Chust district" },
+    names: { uz: "Chust tumani", ru: "Чуст��кий район", en: "Chust district" },
   },
   {
     shipox_id: 263947336,
@@ -853,7 +853,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "navoiy-viloyati",
     names: {
       uz: "Navbahor tumani",
-      ru: "Навбахорский район",
+      ru: "Навбахорс��ий район",
       en: "Navbahor district",
     },
   },
@@ -1168,7 +1168,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "qoraqalpogiston",
     names: {
       uz: "Taxtakoʻpir tumani",
-      ru: "Тахтакупырский район",
+      ru: "Тахт��купырский район",
       en: "Takhtakupyr district",
     },
   },
@@ -1224,7 +1224,7 @@ const CITIES_DATA: RegionCity[] = [
     region_id: "samarqand-viloyati",
     names: {
       uz: "Kattaqoʻrgʻon shahri",
-      ru: "город Каттакурган",
+      ru: "город Ка��такурган",
       en: "Kattakurgan city",
     },
   },
@@ -1679,7 +1679,7 @@ const CITIES_DATA: RegionCity[] = [
   },
   {
     shipox_id: 1216279901,
-    region_id: "toshkent-viloyati",
+    region_id: "toshkent-shahri",
     names: { uz: "Toshkent shahri", ru: "город Ташкент", en: "Tashkent city" },
   },
   {
