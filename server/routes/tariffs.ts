@@ -218,8 +218,8 @@ const REGIONS_DATA: Region[] = [
   {
     id: "toshkent-shahri",
     names: {
-      uz: "Toshkent shahri",
-      ru: "город Ташкент",
+      uz: "Toshkent Shahri",
+      ru: "Город Ташкент",
       en: "Tashkent City",
     },
   },
