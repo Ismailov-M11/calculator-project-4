@@ -43,7 +43,7 @@ async function refreshToken(): Promise<string> {
   console.log("Refreshing auth token...");
 
   const authConfig = {
-    url: "https://prodapi.shipox.com/api/v1/authenticate",
+    url: "https://gateway.fargo.uz/api/v1/authenticate",
     body: {
       username: "calculatoruser@fargo.uz",
       password: "Calculator1234",
@@ -1870,7 +1870,7 @@ export async function calculateTariff(req: Request, res: Response) {
 
     // Build URL with query parameters for the new API
     const baseUrl =
-      "https://api-gateway.shipox.com/api/v2/admin/packages/prices";
+      "https://gateway.fargo.uz/api/v2/admin/packages/prices";
     const params = new URLSearchParams({
       size: "50",
       "dimensions.width": "32",
@@ -1981,7 +1981,7 @@ export async function getCities(req: Request, res: Response) {
     console.log("Fetching cities from FARGO API...");
 
     const url =
-      "https://api-gateway.shipox.com/api/v2/cities?size=200&country_id=234&is_uae=false&page=0&status=active";
+      "https://gateway.fargo.uz/api/v2/cities?size=200&country_id=234&is_uae=false&page=0&status=active";
     const response = await makeAuthenticatedRequest(url);
 
     if (!response.ok) {
@@ -2040,7 +2040,7 @@ export async function getWarehouses(req: Request, res: Response) {
     console.log("Fetching warehouses from FARGO API...");
 
     const url =
-      "https://api-gateway.shipox.com/api/v1/admin/warehouses?size=100&multi_marketplace=false&page=0&status=active&type=POST_OFFICE&show_all=true";
+      "https://gateway.fargo.uz/api/v1/admin/warehouses?size=100&multi_marketplace=false&page=0&status=active&type=POST_OFFICE&show_all=true";
     const response = await makeAuthenticatedRequest(url);
 
     if (!response.ok) {
@@ -2098,7 +2098,7 @@ export async function getLockers(req: Request, res: Response) {
     console.log("Fetching lockers from FARGO API...");
 
     const url =
-      "https://api-gateway.shipox.com/api/v1/admin/warehouses?size=1000&multi_marketplace=false&page=0&status=active&type=LOCKER&show_all=true";
+      "https://gateway.fargo.uz/api/v1/admin/warehouses?size=1000&multi_marketplace=false&page=0&status=active&type=LOCKER&show_all=true";
     const response = await makeAuthenticatedRequest(url);
 
     if (!response.ok) {
